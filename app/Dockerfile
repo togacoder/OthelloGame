@@ -1,5 +1,14 @@
 FROM php:7.3-cli
 
+ARG UID=1000
+ARG USER=admin
+ARG PASS=admin
+RUN useradd -m --uid ${UID} --groups sudo ${USER} \
+  && echo ${USER}:${PASS} | chpasswd
+
 RUN apt-get update && apt-get install -y \
   apt-utils \
-  vim
+  sudo \
+  vim \
+  && apt-get -y clean \
+  && rm -rf /var/lib/apt/lists/*
