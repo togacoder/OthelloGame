@@ -2,4 +2,6 @@ services:
   app:
     build:
       context: app/.
+    volumes:
+      - ./app/source:/home/admin/source
     tty: true
