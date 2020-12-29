@@ -1,8 +1,5 @@
 <?php
 
-$board = new Board();
-$board->display($board->boardInit());
-
 class Board
 {
     const VERTICAL = 8;
@@ -39,5 +36,13 @@ class Board
             }
             echo "\n";
         }
+    }
+
+    public function setPiece($board, $position, $playerColor) {
+        $x = $position[0];
+        $y = $position[1];
+        $board[$y][$x] = $playerColor;
+        self::display($board);
+        return $board;
     }
 }
