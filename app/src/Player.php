@@ -1,5 +1,4 @@
 <?php
-require "board.php";
 
 Class Player
 {
@@ -7,7 +6,7 @@ Class Player
         echo "駒を打つ場所を入力して下さい。\n";
         while(true) {
             $position = explode(' ', trim(fgets(STDIN)));
-            if (0 < $position[0] && $position[0] <= Board::HORIZONTAL && 0 < $position[1] && $position[1] <= Board::VERTICAL) {
+            if (true) {
                 return $position;
             }
             echo "不正な入力です。\n";
@@ -23,5 +22,9 @@ Class Player
             }
             echo "'b'または、'w'を入力して下さい。\n";
         }
+    }
+
+    public static function getEnemyColor($playerColor) {
+        return $playerColor === 'b' ? 'w' : 'b';
     }
 }
