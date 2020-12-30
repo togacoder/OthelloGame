@@ -16,6 +16,7 @@ class Main
 
     private function loop($playerColor) {
         $board = Board::boardInit();
+        $turnPlayerColor = 'b';
         Board::display($board);
         while(true) {
             // 勝敗判定
@@ -24,19 +25,25 @@ class Main
                 echo "$result\n";
                 return;
             }
-            // 駒を置く
-            // 着手可能手
-            $possiblePlaceArray = Piece::getPossiblePlaceArray($board, $playerColor);
-            foreach ($possiblePlaceArray as $value) {
-                echo "$value[0], $value[1] = $value[2]\n";
-            }
-            while(true) {
-                $position = Player::getPlayerPosition();
-                $board = Board::setPiece($board, $position, $playerColor);
-                break;
-            }
 
+            $board = self::movePlayer($board, $turnPlayerColor);
+            $turnPlayerColor = $turnPlayerColor === 'b' ? 'w' : 'b';
         }
+    }
+
+    private function movePlayer($board, $playerColor) {
+        $possiblePlaceArray = Piece::getPossiblePlaceArray($board, $playerColor);
+        self::showPossibleArray($possiblePlaceArray);
+        $position = Player::getPlayerPosition($possiblePlaceArray);
+        $board = Piece::setPiece($board, $position, $playerColor);
+        return $board;
+    }
+
+    private function showPossibleArray($possiblePlaceArray) {
+        foreach ($possiblePlaceArray as $value) {
+            echo "[$value[0], $value[1]] => $value[2], ";
+        }
+        echo "\n";
     }
 
     private function judgment($board) {

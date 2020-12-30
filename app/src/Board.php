@@ -38,14 +38,6 @@ class Board
         }
     }
 
-    public static function setPiece($board, $position, $playerColor) {
-        $x = $position[0];
-        $y = $position[1];
-        $board[$y][$x] = $playerColor;
-        self::display($board);
-        return $board;
-    }
-
     public static function isCheckInBoard($x, $y) {
         return ((0 < $x && $x <= self::HORIZONTAL) && (0 < $y && $y <= self::VERTICAL)) ? true : false;
     }
