@@ -2,6 +2,7 @@
 require "Board.php";
 require "Piece.php";
 require "Player.php";
+require "Enemy.php";
 
 $main = new Main();
 $main->game();
@@ -26,7 +27,13 @@ class Main
                 return;
             }
 
-            $board = self::movePlayer($board, $turnPlayerColor);
+            if ($turnPlayerColor === $playerColor) {
+                echo "自分のターン\n";
+                $board = self::movePlayer($board, $turnPlayerColor);
+            } else {
+                echo "相手のターン\n";
+                $board = Enemy::move($board, $turnPlayerColor);
+            }
             $turnPlayerColor = $turnPlayerColor === 'b' ? 'w' : 'b';
         }
     }
@@ -34,12 +41,18 @@ class Main
     private function movePlayer($board, $playerColor) {
         $possiblePlaceArray = Piece::getPossiblePlaceArray($board, $playerColor);
         self::showPossibleArray($possiblePlaceArray);
+        if (empty($possiblePlaceArray)) {
+            return $board;
+        }
         $position = Player::getPlayerPosition($possiblePlaceArray);
         $board = Piece::setPiece($board, $position, $playerColor);
         return $board;
     }
 
     private function showPossibleArray($possiblePlaceArray) {
+        if (empty($possiblePlaceArray)) {
+            echo "showPlaceArraey 指せる手がありません。\n";
+        }
         foreach ($possiblePlaceArray as $value) {
             echo "[$value[0], $value[1]] => $value[2], ";
         }
