@@ -142,7 +142,7 @@ Class Piece
         return $board;
     }
 
-    public static function acquirablePiece($board, $playerColor, $x, $y) {
+    public static function getPlaceWeightPoint($board, $playerColor, $x, $y) {
         $sum = 0;
         $sum += self::checkLeftUp($board, $playerColor, $x, $y);
         $sum += self::checkUp($board, $playerColor, $x, $y);
@@ -152,6 +152,9 @@ Class Piece
         $sum += self::checkLeftDown($board, $playerColor, $x, $y);
         $sum += self::checkDown($board, $playerColor, $x, $y);
         $sum += self::checkRightDown($board, $palyerColor, $x, $y);
+
+        $sum += Board::isCheckInBoard($x, $y) ? 1 : 0;
+        $sum += Board::isCheckCorners($x, $y) ? 10 : 0;
 
         return $sum;
     }
@@ -269,7 +272,7 @@ Class Piece
         for ($y = 1; $y <= Board::VERTICAL; $y++) {
             for ($x = 1; $x <= Board::HORIZONTAL; $x++) {
                 if ($board[$y][$x] === '*') {
-                    $pieceCount = self::acquirablePiece($board, $playerColor, $x, $y);
+                    $pieceCount = self::getPlaceWeightPoint($board, $playerColor, $x, $y);
                     if (0 < $pieceCount) {
                         array_push($possiblePlaceArray, array($x, $y, $pieceCount));
                     }

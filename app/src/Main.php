@@ -53,8 +53,9 @@ class Main
         if (empty($possiblePlaceArray)) {
             echo "showPlaceArraey 指せる手がありません。\n";
         }
+        echo "(x, y) : point\n";
         foreach ($possiblePlaceArray as $value) {
-            echo "[$value[0], $value[1]] => $value[2], ";
+            echo "([$value[0], $value[1]]) : $value[2], ";
         }
         echo "\n";
     }
