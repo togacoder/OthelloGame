@@ -153,8 +153,10 @@ Class Piece
         $sum += self::checkDown($board, $playerColor, $x, $y);
         $sum += self::checkRightDown($board, $palyerColor, $x, $y);
 
-        $sum += Board::isCheckInBoard($x, $y) ? 1 : 0;
-        $sum += Board::isCheckCorners($x, $y) ? 10 : 0;
+        if(0 < $sum) {
+            $sum += Board::isCheckInBoard($x, $y) ? 1 : 0;
+            $sum += Board::isCheckCorners($x, $y) ? 10 : 0;
+        }
 
         return $sum;
     }
