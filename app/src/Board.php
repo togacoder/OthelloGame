@@ -2,8 +2,8 @@
 
 class Board
 {
-    const VERTICAL = 8;
-    const HORIZONTAL = 8;
+    const VERTICAL = 6;
+    const HORIZONTAL = 6;
 
     public static function boardInit() {
         $baord = array();
@@ -44,5 +44,9 @@ class Board
 
     public static function isChechBoardEdge($x, $y) {
         return ($x === 1 || $x === self::HORIZONTAL || $y === 1 || $y === self::VERTICAL) ? true : false;
+    }
+
+    public static function isCheckCorners($x, $y) {
+        return ($x === 1 && ($y === 1 || $y === self::VERTICAL) || ($x === self::HORIZONTAL && ($y === 1 || $y === self::VERTICAL))) ? true : false;
     }
 }
