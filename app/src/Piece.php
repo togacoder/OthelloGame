@@ -151,7 +151,7 @@ Class Piece
         $sum += self::checkRight($board, $playerColor, $x, $y);
         $sum += self::checkLeftDown($board, $playerColor, $x, $y);
         $sum += self::checkDown($board, $playerColor, $x, $y);
-        $sum += self::checkRightDown($board, $palyerColor, $x, $y);
+        $sum += self::checkRightDown($board, $playerColor, $x, $y);
 
         if(0 < $sum) {
             $sum += Board::isCheckInBoard($x, $y) ? 1 : 0;
@@ -258,7 +258,7 @@ Class Piece
     private function checkRightDown($board, $playerColor, $x, $y) {
         $count = 0;
         $enemyColor = Player::getEnemyColor($playerColor);
-        while(Board::isCheckInBoard($y + 1, $x + 1)) {
+        while(Board::isCheckInBoard($x + 1, $y + 1)) {
             if($board[$y + 1][$x + 1] !== $enemyColor) {
                 break;
             }
