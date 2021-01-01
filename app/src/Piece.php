@@ -7,7 +7,7 @@ Class Piece
         $y = $position[1];
         $board[$y][$x] = $playerColor;
         $board = self::pieceReverce($board, $playerColor, $x, $y);
-        Board::display($board);
+        //Board::display($board);
         return $board;
     }
 

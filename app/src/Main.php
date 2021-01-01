@@ -34,6 +34,7 @@ class Main
                 echo "相手のターン\n";
                 $board = Enemy::move($board, $turnPlayerColor);
             }
+            Board::display($board);
             $turnPlayerColor = $turnPlayerColor === 'b' ? 'w' : 'b';
         }
     }
