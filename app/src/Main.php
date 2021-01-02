@@ -67,21 +67,32 @@ class Main
         $whiteCount = $pieceCount['white'];
         echo "black: $blackCount\twhite: $whiteCount\n";
         if($blackCount === 0) {
-            return 'w1';
+            return 'white';
         } elseif ($whiteCount === 0) {
-            return 'b1';
+            return 'black';
         }
 
-        if ($blackCount + $whiteCount == Board::VERTICAL * Board::HORIZONTAL) {
-            if ($blackCount < $whiteCount) {
-                return 'w2';
-            } elseif ($blackCount > $whiteCount) {
-                return 'b2';
-            } else {
-                return 'd2';
-            }
+        if ($blackCount + $whiteCount == Board::VERTICAL * Board::HORIZONTAL || self::isGameFreeze($board)) {
+           return self::pieceCountCompare($blackCount, $whiteCount);
         }
+
         return 0;
     }
 
+    private function pieceCountCompare($blackCount, $whiteCount) {
+        if ($blackCount > $whiteCount) {
+            return 'black';
+        } elseif ($blackCount < $whiteCount) {
+            return 'white';
+        } else {
+            return 'draw';
+        }
+    }
+
+    private function isGameFreeze($board) {
+        $blackPossiblePlace = count(Piece::getPossiblePlaceArray($board, 'b'));
+        $whitePossiblePiece = count(Piece::getPossiblePlaceArray($board, 'w'));
+
+        return ($blackPossiblePlace === 0 && $whitePossiblePiece === 0) ? true : false;
+    }
 }
