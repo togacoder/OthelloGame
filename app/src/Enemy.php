@@ -47,6 +47,9 @@ Class Enemy
 
         $board = Piece::setPiece($board, $position, $playerColor);
         $enemyPossiblePlaceArray = Piece::getPossiblePlaceArray($board, Player::getEnemyColor($playerColor));
+        if (empty($enemyPossiblePlaceArray)) {
+            return 0;
+        }
 
         $position = array();
         $getMaxEnemyPoint = PHP_INT_MIN;

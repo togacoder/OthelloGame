@@ -157,8 +157,29 @@ Class Piece
             $sum += Board::isCheckInBoard($x, $y) ? 1 : 0;
             $sum += Board::isCheckCorners($x, $y) ? 10 : 0;
         }
+        $sum += self::checkPieceCount($board, $playerColor, $x, $y);
 
         return $sum;
+    }
+
+    private function checkPieceCount($board, $playerColor, $x, $y) {
+        $point = 0;
+        $pieceCount = self::getPieceCount($board);
+        if ($playerColor === 'b') {
+            if ($pieceCount['black'] === 0) {
+                return PHP_MIN_INT;
+            } elseif ($pieceCount['white'] === 0) {
+                return PHP_MAX_INT;
+            }
+        } elseif ($playerColor === 'w') {
+            if ($pieceCount['black'] === 0) {
+                return PHP_MAX_INT;
+            } elseif ($pieceCount['white'] === 0) {
+                return PHP_MIN_INT;
+            }
+        }
+
+        return 0;
     }
 
     private function checkLeftUp($board, $playerColor, $x, $y) {
