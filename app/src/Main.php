@@ -50,7 +50,7 @@ class Main
         return $board;
     }
 
-    private function showPossibleArray($possiblePlaceArray) {
+    public static  function showPossibleArray($possiblePlaceArray) {
         if (empty($possiblePlaceArray)) {
             echo "showPlaceArraey 指せる手がありません。\n";
         }

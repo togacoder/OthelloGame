@@ -239,7 +239,7 @@ Class Piece
             $y++;
             $x--;
         }
-        return $board[$y - 1][$x - 1] === $playerColor ? $count : 0;
+        return $board[$y + 1][$x - 1] === $playerColor ? $count : 0;
     }
 
     private function checkDown($board, $playerColor, $x, $y) {
