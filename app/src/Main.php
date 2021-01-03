@@ -3,6 +3,7 @@ require "Board.php";
 require "Piece.php";
 require "Player.php";
 require "Enemy.php";
+require "View.php";
 
 $main = new Main();
 $main->game();
@@ -18,7 +19,7 @@ class Main
     private function loop($playerColor) {
         $board = Board::boardInit();
         $turnPlayerColor = 'b';
-        Board::display($board);
+        View::displayBoard($board);
         while(true) {
             // 勝敗判定
             $result = self::judgment($board);
@@ -34,31 +35,20 @@ class Main
                 echo "相手のターン\n";
                 $board = Enemy::move($board, $turnPlayerColor);
             }
-            Board::display($board);
+            View::displayBoard($board);
             $turnPlayerColor = $turnPlayerColor === 'b' ? 'w' : 'b';
         }
     }
 
     private function movePlayer($board, $playerColor) {
         $possiblePlaceArray = Piece::getPossiblePlaceArray($board, $playerColor);
-        self::showPossibleArray($possiblePlaceArray);
+        View::showPossibleArray($possiblePlaceArray);
         if (empty($possiblePlaceArray)) {
             return $board;
         }
         $position = Player::getPlayerPosition($possiblePlaceArray);
         $board = Piece::setPiece($board, $position, $playerColor);
         return $board;
-    }
-
-    public static  function showPossibleArray($possiblePlaceArray) {
-        if (empty($possiblePlaceArray)) {
-            echo "showPlaceArraey 指せる手がありません。\n";
-        }
-        echo "(x, y) : point\n";
-        foreach ($possiblePlaceArray as $value) {
-            echo "([$value[0], $value[1]]) : $value[2], ";
-        }
-        echo "\n";
     }
 
     private function judgment($board) {
